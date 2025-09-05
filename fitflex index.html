@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FitFlex — Your Personal Fitness Companion</title>
+  <meta name="description" content="FitFlex: A simple, single‑file fitness companion demo built using only HTML, CSS, and JavaScript (no React)." />
+  <style>
+    :root{
+      --bg: #0b0f14;
+      --card: #121821;
+      --muted: #93a1b1;
+      --text: #e6edf3;
+      --brand: #6ee7b7;
+      --brand-2: #22d3ee;
+      --accent: #f59e0b;
+      --danger: #ef4444;
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--text); background: radial-gradient(1200px 800px at 20% 0%, #111827 0%, var(--bg) 70%);
+      line-height:1.5;
+    }
+    a{color:inherit; text-decoration:none}
+    .container{width:min(1100px, 92%); margin-inline:auto}
+
+    /* Navbar */
+    header{position:sticky; top:0; z-index:50; backdrop-filter:saturate(140%) blur(10px); background:rgba(11,15,20,.65); border-bottom:1px solid rgba(255,255,255,.06)}
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:700}
+    .logo{width:36px; height:36px; border-radius:9px; background:linear-gradient(135deg, var(--brand), var(--brand-2)); display:grid; place-items:center; box-shadow:var(--shadow)}
+    .logo span{font-weight:900; color:#0b0f14}
+    .nav a{opacity:.9}
+    .links{display:flex; gap:18px}
+    .btn{display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)); box-shadow:var(--shadow)}
+
+    /* Hero */
+    .hero{padding:72px 0 32px}
+    .hero-grid{display:grid; grid-template-columns: 1.2fr 1fr; gap:28px; align-items:center}
+    h1{font-size: clamp(32px, 4.5vw, 54px); line-height:1.1; margin:0 0 12px}
+    .sub{color:var(--muted); margin:0 0 20px}
+    .cta{display:flex; gap:12px; flex-wrap:wrap}
+    .pill{padding:12px 18px; border-radius:999px; border:1px solid rgba(255,255,255,.12)}
+    .primary{background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:#013; font-weight:700}
+    .secondary{background:transparent; color:var(--text)}
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius);
+      padding:18px; box-shadow: var(--shadow);
+    }
+    .showcase{height:360px; border-radius:var(--radius); background: radial-gradient(700px 400px at 30% 0%, #0ea5e9 0%, #111827 55%); display:grid; place-items:center}
+    .showcase h3{margin:0; font-size: clamp(22px, 3.5vw, 32px)}
+
+    /* Sections */
+    section{padding:56px 0}
+    .section-title{font-size: clamp(22px, 3vw, 32px); margin:0 0 8px}
+    .section-sub{color:var(--muted); margin:0 0 24px}
+
+    /* Features grid */
+    .grid{display:grid; grid-template-columns: repeat(3, 1fr); gap:18px}
+    .feature h4{margin:0 0 6px}
+    .muted{color:var(--muted)}
+
+    /* BMI card */
+    .bmi-form{display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-top:12px}
+    .input{display:flex; gap:8px; align-items:center; background:rgba(0,0,0,.25); border:1px solid rgba(255,255,255,.10); padding:10px 12px; border-radius:12px}
+    .input input{all:unset; width:100%}
+    .actions{display:flex; gap:10px; margin-top:8px}
+    .link{opacity:.9}
+
+    /* Plans */
+    .cards{display:grid; grid-template-columns: repeat(3, 1fr); gap:18px}
+    .plan .title{display:flex; align-items:center; justify-content:space-between}
+    .badge{font-size:12px; padding:6px 10px; border-radius:999px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12)}
+    .bullets{margin:12px 0 0; padding-left:18px}
+
+    /* Footer */
+    footer{padding:38px 0; border-top:1px solid rgba(255,255,255,.08); color:var(--muted)}
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .hero-grid, .bmi-form{grid-template-columns: 1fr}
+      .grid, .cards{grid-template-columns: 1fr 1fr}
+    }
+    @media (max-width: 640px){
+      .links{display:none}
+      .grid, .cards{grid-template-columns: 1fr}
+      .showcase{height:240px}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="#" class="brand">
+        <div class="logo"><span>FF</span></div>
+        <span>FitFlex</span>
+      </a>
+      <nav class="links">
+        <a href="#features">Features</a>
+        <a href="#bmi">BMI</a>
+        <a href="#plans">Plans</a>
+        <a href="#contact" class="btn">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <h1>FitFlex — Your Personal Fitness Companion</h1>
+          <p class="sub">A lightweight, single‑file starter you can run locally. Track your BMI, browse quick workouts, and plan your week without any frameworks.</p>
+          <div class="cta">
+            <a class="pill primary" href="#bmi">Calculate BMI</a>
+            <a class="pill secondary" href="#plans">Browse Plans</a>
+          </div>
+        </div>
+        <div class="card showcase">
+          <h3>Zero setup. Open this file & go.</h3>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features">
+      <h2 class="section-title">Core features</h2>
+      <p class="section-sub">Simple utilities to get you moving today.</p>
+      <div class="grid">
+        <article class="card feature">
+          <h4>Instant Run</h4>
+          <p class="muted">No installs required. Open <code>index.html</code> in your browser.</p>
+        </article>
+        <article class="card feature">
+          <h4>Responsive Layout</h4>
+          <p class="muted">Looks clean on phones, tablets, and desktops.</p>
+        </article>
+        <article class="card feature">
+          <h4>Vanilla JS Utilities</h4>
+          <p class="muted">BMI calculator + sample workout planner logic.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- BMI Calculator -->
+    <section id="bmi">
+      <div class="card">
+        <h2 class="section-title">BMI Calculator</h2>
+        <p class="section-sub">Enter your height and weight to estimate your Body Mass Index.</p>
+        <div class="bmi-form">
+          <label class="input">
+            <span>Height (cm)</span>
+            <input id="height" type="number" inputmode="decimal" min="80" max="250" placeholder="e.g., 170" />
+          </label>
+          <label class="input">
+            <span>Weight (kg)</span>
+            <input id="weight" type="number" inputmode="decimal" min="20" max="300" placeholder="e.g., 65" />
+          </label>
+        </div>
+        <div class="actions">
+          <button class="pill primary" id="calc">Calculate</button>
+          <button class="pill" id="reset" title="Clear inputs">Reset</button>
+          <a class="link" href="#plans">See suggested plan →</a>
+        </div>
+        <p id="bmiOutput" class="section-sub" style="margin-top:12px"></p>
+      </div>
+    </section>
+
+    <!-- Plans -->
+    <section id="plans">
+      <h2 class="section-title">Sample Workout Plans</h2>
+      <p class="section-sub">Pick a plan that matches your time and intensity.</p>
+      <div class="cards">
+        <article class="card plan">
+          <div class="title">
+            <h4>Quick Start (20 min)</h4>
+            <span class="badge">Beginner</span>
+          </div>
+          <ul class="bullets">
+            <li>Warm‑up walk — 5 min</li>
+            <li>Bodyweight squats — 3 × 12</li>
+            <li>Push‑ups (knees if needed) — 3 × 8</li>
+            <li>Plank — 3 × 30 sec</li>
+          </ul>
+        </article>
+        <article class="card plan">
+          <div class="title">
+            <h4>Burn & Tone (35 min)</h4>
+            <span class="badge">Intermediate</span>
+          </div>
+          <ul class="bullets">
+            <li>Jump rope — 5 min</li>
+            <li>Lunges — 3 × 10 each leg</li>
+            <li>Push‑ups — 3 × 12</li>
+            <li>Russian twists — 3 × 20</li>
+            <li>Cool‑down stretch — 5 min</li>
+          </ul>
+        </article>
+        <article class="card plan">
+          <div class="title">
+            <h4>Strength Builder (45 min)</h4>
+            <span class="badge">Advanced</span>
+          </div>
+          <ul class="bullets">
+            <li>Goblet squats — 4 × 10</li>
+            <li>Bench/Incline push‑ups — 4 × 10</li>
+            <li>Hip thrusts — 4 × 12</li>
+            <li>Side plank — 3 × 30 sec each</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="card">
+        <h2 class="section-title">Contact</h2>
+        <p class="section-sub">This is a front‑end only demo. Use the form below to simulate a submission.</p>
+        <form id="contactForm">
+          <div class="bmi-form">
+            <label class="input">
+              <span>Name</span>
+              <input type="text" id="name" placeholder="Your name" required />
+            </label>
+            <label class="input">
+              <span>Email</span>
+              <input type="email" id="email" placeholder="you@example.com" required />
+            </label>
+          </div>
+          <label class="input" style="margin-top:12px">
+            <span>Message</span>
+            <input type="text" id="message" placeholder="Tell us what you need" required />
+          </label>
+          <div class="actions">
+            <button class="pill primary" type="submit">Send</button>
+            <span id="contactStatus" class="muted"></span>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <small>© <span id="year"></span> FitFlex. Built with plain HTML, CSS & JS.</small>
+    </div>
+  </footer>
+
+  <script>
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // BMI Calculator
+    const h = document.getElementById('height');
+    const w = document.getElementById('weight');
+    const out = document.getElementById('bmiOutput');
+    function classify(bmi){
+      if(!isFinite(bmi)) return '';
+      if(bmi < 18.5) return 'Underweight';
+      if(bmi < 25) return 'Normal weight';
+      if(bmi < 30) return 'Overweight';
+      return 'Obesity';
+    }
+    document.getElementById('calc').addEventListener('click', () => {
+      const heightM = parseFloat(h.value) / 100;
+      const weight = parseFloat(w.value);
+      if(!heightM || !weight){
+        out.textContent = 'Please enter valid height and weight.';
+        out.style.color = 'var(--danger)';
+        return;
+      }
+      const bmi = weight / (heightM * heightM);
+      const label = classify(bmi);
+      out.style.color = 'var(--text)';
+      out.textContent = `BMI: ${bmi.toFixed(1)} — ${label}`;
+    });
+    document.getElementById('reset').addEventListener('click', () => {
+      h.value = '';
+      w.value = '';
+      out.textContent = '';
+    });
+
+    // Fake contact form handler
+    const form = document.getElementById('contactForm');
+    const status = document.getElementById('contactStatus');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      status.textContent = 'Sending…';
+      setTimeout(() => {
+        status.textContent = 'Message sent (demo).';
+      }, 600);
+    });
+  </script>
+</body>
+</html>
